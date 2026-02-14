@@ -48,7 +48,7 @@ except:
     st.error("API 키가 설정되지 않았습니다. .streamlit/secrets.toml 파일을 확인하세요.")
     st.stop()
 
-# --- [로직] 날짜와 시간에 따른 주인공 별자리 및 이미지 매칭 ---
+# --- [로직] 날짜에 따른 주인공 별자리 및 이미지 정보 매칭 ---
 def get_best_star_info():
     now = datetime.now()
     month = now.month
@@ -125,36 +125,32 @@ if query:
             st.write(f"**상태:** {condition}")
 
         with right_col:
-            # --- [수정 완료] '별 관측 지수' 삭제 후 '오늘의 별 추천'으로 교체 ---
             st.subheader("🔭 오늘의 별 추천")
             star_name, star_desc = get_best_star_info()
             
             # 1. 별자리 이름 강조 박스
             st.markdown(f"<div style='text-align: center;'><div class='constellation-box'>{star_name}</div></div>", unsafe_allow_html=True)
             
-            # 2. 별자리 성도 이미지 가이드
+            # 2. 별자리 성도 이미지 가이드 (문법 오류 수정 완료)
             if star_name == "오리온자리":
-                st.markdown("")
+                st.write("")
             elif star_name == "처녀자리":
-                st.markdown("
-
-[Image of the constellation Virgo star chart]
-")
+                st.write("")
             elif star_name == "백조자리":
-                st.markdown("")
+                st.write("")
             else:
-                st.markdown("")
+                st.write("")
             
             # 3. 별자리 설명
             st.info(f"✨ **{star_name}**: {star_desc}")
             
-            # 4. 관측 상태 메시지 (수치는 삭제)
+            # 4. 관측 상태 메시지
             if cloud < 40:
-                st.success(f"오늘 밤, 밤하늘에서 **{star_name}**를 찾아보기에 아주 좋은 날씨입니다!")
+                st.success(f"오늘 밤, 밤하늘에서 **{star_name}**를 찾아보기에 아주 좋은 날씨입니다! ✨")
             elif cloud < 80:
-                st.warning(f"약간의 구름은 있지만, 밝은 **{star_name}**는 충분히 감상하실 수 있습니다.")
+                st.warning(f"약간의 구름은 있지만, 밝은 **{star_name}**는 충분히 감상하실 수 있습니다. 🌟")
             else:
-                st.error(f"아쉽게도 지금은 구름이 많아 **{star_name}**가 구름 뒤에 숨어있네요.")
+                st.error(f"아쉽게도 지금은 구름이 많아 **{star_name}**가 구름 뒤에 숨어있네요. ☁️")
             
             st.write("---")
             st.caption("※ 실시간 날씨 정보를 바탕으로 별자리를 추천해 드립니다.")
